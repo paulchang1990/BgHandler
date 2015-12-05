@@ -3,13 +3,12 @@ package com.paul.handlerthreaddemo;
 import android.os.Bundle;
 import android.os.Message;
 import android.os.SystemClock;
-import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.paul.handlerthreaddemo.process.MessageHandler;
-import com.paul.handlerthreaddemo.process.RunnableHandler;
+import com.paul.bghandler.MessageHandler;
+import com.paul.bghandler.RunnableHandler;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -91,9 +90,11 @@ public class MainActivity extends AppCompatActivity implements MessageHandler
         switch (msg.what) {
             case MAIN_FINISH:
                 //do sth on bg thread.
+                Log.i(TAG, "======main finished============");
                 break;
             case BG_FINISH:
                 //do sth on bg thread.
+                Log.i(TAG, "=========bg finished===========");
                 break;
             default:
                 break;

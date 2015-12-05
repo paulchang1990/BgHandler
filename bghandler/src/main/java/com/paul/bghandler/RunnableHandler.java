@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.paul.handlerthreaddemo.process;
+package com.paul.bghandler;
 
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -33,6 +33,7 @@ public class RunnableHandler {
     private HandlerThread mHandlerThread;
     private Handler mHandler;
     private final LinkedList<Runnable> mRunnables = new LinkedList<>();
+    private boolean mQuit;
 
     public RunnableHandler(@NonNull HandlerThread handlerThread) {
         this.mHandlerThread = handlerThread;
@@ -56,6 +57,9 @@ public class RunnableHandler {
     }
 
     public void postRunnable(Runnable runnable) {
+        if (mQuit) {
+            return;
+        }
         mHandler.post(runnable);
         mRunnables.add(runnable);
     }
@@ -66,28 +70,42 @@ public class RunnableHandler {
     }
 
     public void postAtTime(Runnable runnable, long uptimeMillis) {
+        if (mQuit) {
+            return;
+        }
         mHandler.postAtTime(runnable, uptimeMillis);
         mRunnables.add(runnable);
     }
 
     public void postDelayed(Runnable runnable, long delayMillis) {
+        if (mQuit) {
+            return;
+        }
         mHandler.postDelayed(runnable, delayMillis);
         mRunnables.add(runnable);
     }
 
     public void removeRunnable(Runnable runnable) {
+        if (mQuit) {
+            return;
+        }
         mHandler.removeCallbacks(runnable);
         mRunnables.remove(runnable);
     }
 
     public void removeAllRunnable() {
+        if (mQuit) {
+            return;
+        }
         for (Runnable runnable : mRunnables) {
             mHandler.removeCallbacks(runnable);
         }
         mRunnables.clear();
     }
 
-    public void quit(){
+    public void quit() {
         mHandlerThread.quit();
+        mQuit = true;
     }
+
 }
