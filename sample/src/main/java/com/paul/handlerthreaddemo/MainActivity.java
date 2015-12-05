@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements MessageHandler
             if (BuildConfig.DEBUG) {
                 for (int i = 0; i < 5; i++) {
                     Log.d(TAG, "mainThread---" + String.valueOf(atomInt.incrementAndGet()));
-                    SystemClock.sleep(1000);
+                    SystemClock.sleep(2);
                 }
                 mMessageHandler.sendEmptyMessage(MAIN_FINISH);
             }
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements MessageHandler
             if (BuildConfig.DEBUG) {
                 for (int i = 0; i < 5; i++) {
                     Log.d(TAG, "bgThread---" + String.valueOf(atomInt.incrementAndGet()));
-                    SystemClock.sleep(1000);
+                    SystemClock.sleep(2);
                 }
                 mMessageHandler.sendEmptyMessage(BG_FINISH);
             }
